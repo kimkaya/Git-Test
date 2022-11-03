@@ -17,9 +17,8 @@ public class BoardService {
         this.repository = repository;
     }
 
-    public Integer BoardSave(Boards boards){
-        Boards save = repository.save(boards);
-        return save.getId();
+    public void BoardSave(Boards boards){
+       repository.save(boards);
     }
 
     public List<Boards> boardsList(){
