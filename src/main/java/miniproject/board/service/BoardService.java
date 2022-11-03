@@ -32,6 +32,7 @@ public class BoardService {
 
     public Boards boards(Integer id){
         Optional<Boards> boardsList = repository.findById(id);
+        System.out.println(boardsList.get());
         return boardsList.get();
     }
 

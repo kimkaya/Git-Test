@@ -1,16 +1,9 @@
-package miniproject.board.domain;
+package miniproject.board.controller;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="boards")
-public class Boards {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BoardForm {
     private Integer id;
     private String title;
-    @Column
-    private String content;
+    private  String content;
 
     public Integer getId() {
         return id;
@@ -34,14 +27,5 @@ public class Boards {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Boards{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
     }
 }
