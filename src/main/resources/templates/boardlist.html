@@ -20,7 +20,8 @@
                     <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.id}"></a>
                 </td>
 
-                <td th:text="${board.title}">
+                <td >
+                    <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}"></a>
                 </td>
 
                 <td th:text="${board.content}">
@@ -28,7 +29,16 @@
 
             </tr>
         </tbody>
-
 </table>
+    <hr>
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+
+        <a th:if="${page != nowPage}" th:href="@{/boardlist/(page=${page-1})}" th:text="${page}">
+        </a>
+
+        <strong th:if="${page == nowPage}" th:text="${page}">
+        </strong>  <!-- 눌렀을 때 이동하지 않게 -->
+
+    </th:block>
 </body>
 </html>
