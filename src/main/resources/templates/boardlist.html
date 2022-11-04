@@ -15,19 +15,7 @@
         </thead>
 
         <tbody>
-            <tr th:each="board : ${boards}">
-                <td>
-                    <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.id}"></a>
-                </td>
 
-                <td >
-                    <a th:href="@{/board/{id}(id=${board.id})}" th:text="${board.title}"></a>
-                </td>
-
-                <td th:text="${board.content}">
-                </td>
-
-            </tr>
         </tbody>
 </table>
     <hr>
