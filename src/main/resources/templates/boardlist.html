@@ -13,7 +13,11 @@
                 <th>내용</th>
             </tr>
         </thead>
-
+            <tr th:each="board : ${boards}">
+                <td><a href="@{/board/{id}(id=${board})}" th:text="${board.id}"></a></td>
+                <td><a href="@{/board/{id}(id=${board})}" th:text="${board.title}"></a></td>
+                <td th:text="${board.content}"></td>
+            </tr>
         <tbody>
 
         </tbody>

@@ -17,6 +17,10 @@ public class Member {
     private String email;
     private String address;
 
+    @OneToOne
+    @JoinColumn(name = "id")
+
+
     public String getPhone() {
         return phone;
     }

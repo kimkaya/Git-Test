@@ -32,9 +32,8 @@ public class BoardController {
     @GetMapping("/boardlist")
     public String boardlist
             (Model model ,
-             @PageableDefault
-                     (page = 0, size = 20, sort = "id" , direction = Sort.Direction.DESC)
-             Pageable pageable) {
+             @PageableDefault(page = 0, size = 20, sort = "id" , direction = Sort.Direction.DESC) Pageable pageable)
+    {
         Page<Boards> boards = service.boardsList(pageable);
         int nowPage = boards.getPageable().getPageNumber() + 1;
         int startPage = 1;
@@ -67,16 +66,28 @@ public class BoardController {
     }
 
     @PostMapping("/boardwrite")
-    public String boardwritepost(BoardForm form) {
+    public String boardwritepost(BoardForm form, Model model) {
         Boards board = new Boards();
         board.setTitle(form.getTitle());
         board.setContent(form.getContent());
-        service.BoardSave(board);
-        return "redirect:/boardlist";
+
+        Integer res = service.BoardSave(board);
+        String message = "";
+        if (res >0) {
+            message = "글등록에 성공했습니다.";
+        }
+        else {
+            message = "글등록에 실패했습니다";
+        }
+        String redirectUri = "/boardlist";
+        model.addAttribute("message", message );
+        model.addAttribute("redirectUri", redirectUri);
+        return "messageRedirect";
     }
 
     @PostMapping("/boardUpdate")
-    public String boardUpdate(BoardForm form) {
+    public String boardUpdate(BoardForm form, Model model)
+    {
         Boards board = service.boards(form.getId());
         if(form.getTitle() != board.getTitle()){
             board.setTitle(form.getTitle());
@@ -84,16 +95,33 @@ public class BoardController {
         if(form.getContent() != board.getContent()){
             board.setContent(form.getContent());
         }
-        board.setTitle(form.getTitle());
-        board.setContent(form.getContent());
-        service.BoardSave(board);
-        return "redirect:/boardlist";
+
+        Integer res = service.BoardSave(board);
+        String message = "";
+        if (res == form.getId()) {
+            message = "글수정에 성공했습니다.";
+        }
+        else {
+            message = "글 수정에 실패했습니다";
+        }
+            String redirectUri = "/boardlist";
+            model.addAttribute("message", message);
+            model.addAttribute("redirectUri", redirectUri);
+            return "messageRedirect";
+
+
+
     }
 
     @PostMapping("/boardDelete/{id}")
-    public String boardDelete(Integer id) {
+    public String boardDelete(Integer id, Model model) {
         service.boardDelete(id);
-        return "redirect:/boardlist";
+        String message = "글삭제에 성공했습니다.";
+        String redirectUri = "/boardlist";
+        model.addAttribute("message", message );
+        model.addAttribute("redirectUri", redirectUri);
+        return "messageRedirect";
+
     }
 
 //        <input type="submit" value="수정" th:action="@{/boardUpdate/{id}(id=${board.id})}">

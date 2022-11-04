@@ -16,17 +16,23 @@ public class BoardService {
     private final JpaBoardRepository repository;
 
     public BoardService(JpaBoardRepository repository) {
+
         this.repository = repository;
     }
 
-    public void BoardSave(Boards boards){
-       repository.save(boards);
+    public Integer BoardSave(Boards boards){
+
+        Boards save = repository.save(boards);
+        return save.getId();
     }
 
     public Page<Boards> boardsList(Pageable pageable){
         Page<Boards> boards = repository.findAll(pageable);
         return boards;
     }
+//    public void boardMemberJoin(){
+//        repository.findAllById()
+//    }
 
     public  void boardDelete(Integer id){
         repository.deleteById(id);

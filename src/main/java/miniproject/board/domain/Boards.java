@@ -12,8 +12,11 @@ public class Boards {
     private Integer id;
     @NotNull
     private String title;
-    @Column
+
     private String content;
+    @ManyToOne
+    @JoinColumn(name="userid")
+    private Member member;
 
     public Integer getId() {
         return id;
